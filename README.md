@@ -6,6 +6,7 @@ Visit https://simplepasswordgenerator.net
 Passwords are generated primarily using `crypto.getRandomValues`
 
 Technologies used:
+  * React/Typescript
   * Fluent UI for UI
   * Jotai for state management
   * Vite for bundling
