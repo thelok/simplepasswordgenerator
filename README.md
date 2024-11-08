@@ -3,6 +3,8 @@ This is a simple web-based password generator. Passwords are generated entirely 
 
 Visit https://simplepasswordgenerator.net
 
+Passwords are generated primarily using `crypto.getRandomValues`
+
 Technologies used:
   * Fluent UI for UI
   * Jotai for state management
