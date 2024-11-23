@@ -4,6 +4,15 @@ import { PasswordGenerator } from './passwordGenerator/PasswordGenerator'
 import { PasswordGeneratorForm } from './passwordGenerator/PasswordGeneratorForm'
 import { UsageReasons } from './UsageReasons'
 
+/**
+ * The main application component for the Simple Password Generator.
+ * 
+ * This component renders the entire UI for the password generator application.
+ * It includes the main title, description, password generator form, and other
+ * related components.
+ * 
+ * @returns {JSX.Element} The rendered application component.
+ */
 export const App = () => {
   return (
     <>

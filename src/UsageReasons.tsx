@@ -1,5 +1,8 @@
 import { Reason } from "./Reason"
 
+/**
+ * UsageReasons component that displays a list of reasons to use the Simple Password Generator.
+ */
 export const UsageReasons = () => {
     return <div className="usage-reasons">
         <div>Here are some compelling reasons to use Simple Password Generator:
@@ -11,6 +14,7 @@ export const UsageReasons = () => {
             <Reason title="Customizable Options" reason="Passwords can be tailored to meet specific requirements, such as length and the inclusion of special characters." />
             <Reason title="Convenience" reason="Strong passwords can be generated quickly and easily, saving time and effort compared to coming up with them manually." />
             <Reason title="Offline Capability" reason="Passwords can be created even without an internet connection, as the generation happens client-side." />
+            <Reason title="Free to Use" reason="The password generator is completely free to use, with no hidden charges or subscriptions." />
         </ul>
     </div>
 }
