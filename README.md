@@ -10,3 +10,21 @@ Technologies used:
   * Fluent UI for UI
   * Jotai for state management
   * Vite for bundling
+
+## Enhanced Security
+Since passwords are generated client-side, they never travel over the network, ensuring that they remain private and secure.
+
+## Strong, Random Passwords
+The site can create complex and unpredictable passwords, making them highly resistant to hacking attempts.
+
+## User-Friendly
+The process is straightforward and doesn’t require any technical expertise, making it accessible for everyone.
+
+## Customizable Options
+Passwords can be tailored to meet specific requirements, such as length and the inclusion of special characters.
+
+## Convenience
+Strong passwords can be generated quickly and easily, saving time and effort compared to coming up with them manually.
+
+## Offline Capability
+Passwords can be created even without an internet connection, as the generation happens client-side.
