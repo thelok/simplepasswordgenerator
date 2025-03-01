@@ -23,6 +23,8 @@ export const App = () => {
             <div>
               A simple password generator. Passwords are generated entirely in your web browser.
               We do not know the passwords that are generated and we do not store any passwords.
+
+              View the source: <a href="https://github.com/thelok/simplepasswordgenerator">https://github.com/thelok/simplepasswordgenerator</a>
             </div>
             <div>
               Configure your password settings and hit the <b><code>Generate</code></b> button.
