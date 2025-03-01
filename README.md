@@ -11,6 +11,9 @@ Technologies used:
   * Jotai for state management
   * Vite for bundling
 
+## License
+MIT License
+
 ## Enhanced Security
 Since passwords are generated client-side, they never travel over the network, ensuring that they remain private and secure.
 
