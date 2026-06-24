@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fluentui/react-components": "9.54.13",
+    "@fluentui/react-components": "9.74.2",
     "@fluentui/react-icons": "2.0.258",
     "jotai": "2.9.3",
     "react": "18.3.1",
