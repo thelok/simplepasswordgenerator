@@ -1,8 +1,11 @@
-import { Checkbox, Field, Input, Slider, Tab, TabList } from "@fluentui/react-components";
+import { Button, Checkbox, Field, Input, Slider, Tab, TabList } from "@fluentui/react-components";
+import { LinkRegular } from "@fluentui/react-icons";
 import { useAtom } from "jotai";
+import { useState } from "react";
 import { passwordGeneratorAtom } from "../state/state";
 import { GeneratorMode } from "./PasswordGeneratorData";
 import { PasswordStrength } from "./PasswordStrength";
+import { buildPresetUrl } from "./preset";
 import "./passwordgenerator.scss";
 
 const MIN_LENGTH = 6;
@@ -13,6 +16,15 @@ const MAX_WORDS = 10;
 export const PasswordGeneratorForm = () => {
     const [opts, setOpts] = useAtom(passwordGeneratorAtom);
     const mode = opts.mode ?? "password";
+    const [shareLabel, setShareLabel] = useState("Share these settings");
+
+    const onShare = () => {
+        const url = buildPresetUrl(opts);
+        navigator.clipboard.writeText(url);
+        window.history.replaceState(null, "", url);
+        setShareLabel("Link copied!");
+        setTimeout(() => setShareLabel("Share these settings"), 2000);
+    };
 
     return <div className="password-generator-form">
         <TabList
@@ -57,6 +69,14 @@ export const PasswordGeneratorForm = () => {
                 checked={opts.isExcludeAmbiguousCharacters}
                 onChange={() => setOpts({ ...opts, isExcludeAmbiguousCharacters: !opts.isExcludeAmbiguousCharacters })}
             />
+            <Field label="Also exclude these characters" hint="Useful when a site rejects specific symbols">
+                <Input
+                    value={opts.customExclude ?? ""}
+                    maxLength={32}
+                    placeholder='e.g. {}|"'
+                    onChange={(_, d) => setOpts({ ...opts, customExclude: d.value })}
+                />
+            </Field>
         </>}
 
         {mode === "passphrase" && <>
@@ -91,6 +111,19 @@ export const PasswordGeneratorForm = () => {
             </div>
         </>}
 
+        <Field label={`How many to generate: ${opts.generateCount ?? 10}`}>
+            <Slider
+                min={1}
+                max={50}
+                value={opts.generateCount ?? 10}
+                onChange={(_, data) => setOpts({ ...opts, generateCount: data.value })}
+            />
+        </Field>
+
         <PasswordStrength />
+
+        <Button appearance="subtle" icon={<LinkRegular />} onClick={onShare} style={{ alignSelf: "flex-start" }}>
+            {shareLabel}
+        </Button>
     </div>
 }

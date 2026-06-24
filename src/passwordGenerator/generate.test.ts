@@ -21,7 +21,9 @@ const base: PasswordGeneratorData = {
     isUseSimpleSymbols: true,
     isUseComplexSymbols: false,
     isExcludeAmbiguousCharacters: false,
+    customExclude: "",
     passwordLength: 20,
+    generateCount: 10,
     wordCount: 5,
     separator: "-",
     capitalizeWords: false,
@@ -41,6 +43,26 @@ describe("getCharacterSet", () => {
         const cs = getCharacterSet({ ...base, isExcludeAmbiguousCharacters: true });
         for (const c of AMBIGUOUS) expect(cs).not.toContain(c);
         expect(cs).toContain("a");
+    });
+
+    it("strips custom-excluded characters", () => {
+        const cs = getCharacterSet({ ...base, customExclude: "abc!9" });
+        expect(cs).not.toContain("a");
+        expect(cs).not.toContain("b");
+        expect(cs).not.toContain("!");
+        expect(cs).not.toContain("9");
+        expect(cs).toContain("d");
+        expect(cs).toContain("@");
+    });
+
+    it("drops a class entirely if exclusions empty it", () => {
+        const cs = getCharacterSet({
+            ...base,
+            isUseAlpha: false,
+            isUseSimpleSymbols: false,
+            customExclude: "0123456789",
+        });
+        expect(cs).toBe("");
     });
 
     it("returns empty when nothing selected", () => {

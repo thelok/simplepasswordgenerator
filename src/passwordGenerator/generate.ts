@@ -7,21 +7,24 @@ export const SIMPLE_SYMBOLS = "!@#$%^&*()-=_+";
 export const COMPLEX_SYMBOLS = "\"',./:;<>?[\\]`{|}~";
 export const AMBIGUOUS = "iI1lOo08B";
 
-function stripAmbiguous(s: string): string {
+function stripChars(s: string, remove: string): string {
     let out = s;
-    for (const c of AMBIGUOUS) out = out.replaceAll(c, "");
+    for (const c of remove) out = out.replaceAll(c, "");
     return out;
 }
 
-/** Returns the active character classes for the given options, after ambiguity filtering. */
+/** Returns the active character classes for the given options, after exclusion filtering. */
 export function getCharacterClasses(opts: PasswordGeneratorData): string[] {
     const classes: string[] = [];
     if (opts.isUseAlpha) classes.push(ALPHA);
     if (opts.isUseNumeric) classes.push(NUMERIC);
     if (opts.isUseSimpleSymbols) classes.push(SIMPLE_SYMBOLS);
     if (opts.isUseComplexSymbols) classes.push(COMPLEX_SYMBOLS);
-    if (opts.isExcludeAmbiguousCharacters) {
-        return classes.map(stripAmbiguous).filter((c) => c.length > 0);
+
+    let exclude = opts.customExclude ?? "";
+    if (opts.isExcludeAmbiguousCharacters) exclude += AMBIGUOUS;
+    if (exclude) {
+        return classes.map((c) => stripChars(c, exclude)).filter((c) => c.length > 0);
     }
     return classes;
 }
