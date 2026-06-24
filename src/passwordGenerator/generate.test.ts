@@ -7,18 +7,25 @@ import {
     SIMPLE_SYMBOLS,
     crackTimeDisplay,
     entropyBits,
+    generatePassphrase,
     generatePassword,
     getCharacterSet,
 } from "./generate";
+import { WORDLIST } from "./wordlist";
 import { PasswordGeneratorData } from "./PasswordGeneratorData";
 
 const base: PasswordGeneratorData = {
+    mode: "password",
     isUseAlpha: true,
     isUseNumeric: true,
     isUseSimpleSymbols: true,
     isUseComplexSymbols: false,
     isExcludeAmbiguousCharacters: false,
     passwordLength: 20,
+    wordCount: 5,
+    separator: "-",
+    capitalizeWords: false,
+    appendNumber: false,
 };
 
 describe("getCharacterSet", () => {
@@ -62,6 +69,7 @@ describe("generatePassword", () => {
 
     it("guarantees at least one of each enabled class", () => {
         const opts: PasswordGeneratorData = {
+            ...base,
             isUseAlpha: true,
             isUseNumeric: true,
             isUseSimpleSymbols: true,
@@ -91,6 +99,36 @@ describe("generatePassword", () => {
         const seen = new Set<string>();
         for (let i = 0; i < 50; i++) seen.add(generatePassword(base));
         expect(seen.size).toBeGreaterThan(45);
+    });
+});
+
+describe("generatePassphrase", () => {
+    const phraseOpts: PasswordGeneratorData = { ...base, mode: "passphrase" };
+
+    it("emits the configured number of words from the wordlist", () => {
+        const dict = new Set(WORDLIST);
+        for (let i = 0; i < 50; i++) {
+            const parts = generatePassphrase({ ...phraseOpts, wordCount: 6 }).split("-");
+            expect(parts).toHaveLength(6);
+            for (const w of parts) expect(dict.has(w)).toBe(true);
+        }
+    });
+
+    it("respects separator and capitalization", () => {
+        const p = generatePassphrase({ ...phraseOpts, separator: ".", capitalizeWords: true, wordCount: 4 });
+        const parts = p.split(".");
+        expect(parts).toHaveLength(4);
+        for (const w of parts) expect(w[0]).toBe(w[0].toUpperCase());
+    });
+
+    it("appends a two-digit number when requested", () => {
+        const p = generatePassphrase({ ...phraseOpts, wordCount: 3, appendNumber: true });
+        expect(p).toMatch(/-(\d{2})$/);
+    });
+
+    it("computes passphrase entropy from word count", () => {
+        const bits = entropyBits({ ...phraseOpts, wordCount: 5 });
+        expect(bits).toBeCloseTo(5 * Math.log2(1296), 3);
     });
 });
 

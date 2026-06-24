@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 import { passwordGeneratorAtom } from "../state/state";
 import { Password } from "./Password";
-import { generatePassword, getCharacterSet } from "./generate";
+import { generate, getCharacterSet } from "./generate";
 
 const NUM_PASSWORDS_GENERATE = 10;
 
@@ -14,10 +14,12 @@ export const PasswordGenerator = () => {
     const onGeneratePassword = useCallback(() => {
         const newPasswords: string[] = [];
         for (let i = 0; i < NUM_PASSWORDS_GENERATE; i++) {
-            newPasswords.push(generatePassword(passwordGeneratorForm));
+            newPasswords.push(generate(passwordGeneratorForm));
         }
         setPasswords(newPasswords);
     }, [passwordGeneratorForm]);
+
+    const canGenerate = (passwordGeneratorForm.mode ?? "password") === "passphrase" || !!getCharacterSet(passwordGeneratorForm);
 
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
@@ -36,7 +38,7 @@ export const PasswordGenerator = () => {
 
     return <div className="generate-section">
         <Button
-            disabled={!getCharacterSet(passwordGeneratorForm)}
+            disabled={!canGenerate}
             appearance='primary'
             onClick={onGeneratePassword}
             size="large"
