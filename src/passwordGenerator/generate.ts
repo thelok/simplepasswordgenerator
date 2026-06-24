@@ -1,4 +1,5 @@
 import { PasswordGeneratorData } from "./PasswordGeneratorData";
+import { WORDLIST } from "./wordlist";
 
 export const ALPHA = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 export const NUMERIC = "0123456789";
@@ -72,8 +73,37 @@ export function generatePassword(opts: PasswordGeneratorData): string {
     return shuffle(chars).join("");
 }
 
-/** Shannon entropy in bits assuming uniform selection from the active charset. */
+function capitalize(w: string): string {
+    return w.charAt(0).toUpperCase() + w.slice(1);
+}
+
+export function generatePassphrase(opts: PasswordGeneratorData): string {
+    const count = Math.max(1, opts.wordCount ?? 5);
+    const sep = opts.separator ?? "-";
+    const words: string[] = [];
+    for (let i = 0; i < count; i++) {
+        const w = WORDLIST[randomInt(WORDLIST.length)];
+        words.push(opts.capitalizeWords ? capitalize(w) : w);
+    }
+    let out = words.join(sep);
+    if (opts.appendNumber) {
+        out += sep + randomInt(100).toString().padStart(2, "0");
+    }
+    return out;
+}
+
+export function generate(opts: PasswordGeneratorData): string {
+    return (opts.mode ?? "password") === "passphrase" ? generatePassphrase(opts) : generatePassword(opts);
+}
+
+/** Shannon entropy in bits for the current configuration. */
 export function entropyBits(opts: PasswordGeneratorData): number {
+    if ((opts.mode ?? "password") === "passphrase") {
+        const count = Math.max(1, opts.wordCount ?? 5);
+        let bits = count * Math.log2(WORDLIST.length);
+        if (opts.appendNumber) bits += Math.log2(100);
+        return bits;
+    }
     const n = getCharacterSet(opts).length;
     if (n === 0) return 0;
     return opts.passwordLength * Math.log2(n);

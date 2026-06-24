@@ -1,7 +1,7 @@
 import { ProgressBar, tokens } from "@fluentui/react-components";
 import { useAtomValue } from "jotai";
 import { passwordGeneratorAtom } from "../state/state";
-import { crackTimeDisplay, entropyBits, getCharacterSet } from "./generate";
+import { crackTimeDisplay, entropyBits } from "./generate";
 
 const TIERS = [
     { min: 0, label: "Very weak", color: tokens.colorStatusDangerForeground1 },
@@ -13,7 +13,6 @@ const TIERS = [
 
 export const PasswordStrength = () => {
     const opts = useAtomValue(passwordGeneratorAtom);
-    const charset = getCharacterSet(opts);
     const bits = entropyBits(opts);
     const tier = [...TIERS].reverse().find((t) => bits >= t.min) ?? TIERS[0];
     const pct = Math.min(bits / 128, 1);
@@ -23,7 +22,7 @@ export const PasswordStrength = () => {
             <div className="strength-header">
                 <span style={{ color: tier.color, fontWeight: 600 }}>{tier.label}</span>
                 <span className="opaque">
-                    {Math.round(bits)} bits · {charset.length} chars · cracked in ~{crackTimeDisplay(bits)}
+                    {Math.round(bits)} bits of entropy · cracked in ~{crackTimeDisplay(bits)}
                 </span>
             </div>
             <ProgressBar value={pct} thickness="large" color={bits >= 80 ? "success" : bits >= 60 ? "warning" : "error"} />
