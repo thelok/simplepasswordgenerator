@@ -1,33 +1,38 @@
 # Simple Password Generator
-This is a simple web-based password generator. Passwords are generated entirely in the web browser. We do not know the passwords that are generated and we do not store any passwords.
 
-Visit https://simplepasswordgenerator.net or https://thelok.github.io/simplepasswordgenerator
+[![Deploy](https://github.com/thelok/simplepasswordgenerator/actions/workflows/static.yml/badge.svg)](https://github.com/thelok/simplepasswordgenerator/actions/workflows/static.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Passwords are generated primarily using `crypto.getRandomValues`
+A fast, open-source, **client-side** password generator. Passwords are created entirely in your browser using `crypto.getRandomValues` — nothing is sent over the network, nothing is stored.
 
-Technologies used:
-  * React/Typescript
-  * Fluent UI for UI
-  * Jotai for state management
-  * Vite for bundling
+**Try it:** [simplepasswordgenerator.net](https://simplepasswordgenerator.net) · [GitHub Pages mirror](https://thelok.github.io/simplepasswordgenerator)
+
+## Features
+
+- **Cryptographically secure** — uses the Web Crypto API with unbiased rejection sampling (no modulo bias)
+- **Guaranteed character classes** — every password contains at least one of each enabled type (letters, numbers, symbols)
+- **Live strength meter** — see entropy bits and estimated crack time as you adjust settings
+- **Installable PWA** — works fully offline; add it to your home screen
+- **Customizable** — length 6–64, simple/complex symbols, exclude ambiguous characters (`iI1lOo08B`)
+- **Zero tracking** — no analytics, no cookies, no network calls
+
+## Why client-side?
+
+Since passwords are generated locally, they never travel over the network and are never visible to us. You can audit the [generator source](src/passwordGenerator/generate.ts) — it's ~100 lines.
+
+## Tech
+
+React · TypeScript · Fluent UI · Jotai · Vite · Vitest · vite-plugin-pwa
+
+## Development
+
+```sh
+npm install
+npm run dev      # http://localhost:5173
+npm test         # run unit tests
+npm run build    # production build to ./dist
+```
 
 ## License
-MIT License
 
-## Enhanced Security
-Since passwords are generated client-side, they never travel over the network, ensuring that they remain private and secure.
-
-## Strong, Random Passwords
-The site can create complex and unpredictable passwords, making them highly resistant to hacking attempts.
-
-## User-Friendly
-The process is straightforward and doesn’t require any technical expertise, making it accessible for everyone.
-
-## Customizable Options
-Passwords can be tailored to meet specific requirements, such as length and the inclusion of special characters.
-
-## Convenience
-Strong passwords can be generated quickly and easily, saving time and effort compared to coming up with them manually.
-
-## Offline Capability
-Passwords can be created even without an internet connection, as the generation happens client-side.
+MIT
