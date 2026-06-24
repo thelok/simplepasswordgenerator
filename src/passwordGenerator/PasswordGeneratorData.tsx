@@ -12,7 +12,10 @@ export interface PasswordGeneratorData {
     isUseSimpleSymbols: boolean;
     isUseComplexSymbols: boolean;
     isExcludeAmbiguousCharacters: boolean;
+    customExclude: string;
     passwordLength: number;
+
+    generateCount: number;
 
     wordCount: number;
     separator: string;
