@@ -3,26 +3,28 @@
 [![Deploy](https://github.com/thelok/simplepasswordgenerator/actions/workflows/static.yml/badge.svg)](https://github.com/thelok/simplepasswordgenerator/actions/workflows/static.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-A fast, open-source, **client-side** password generator. Passwords are created entirely in your browser using `crypto.getRandomValues` — nothing is sent over the network, nothing is stored.
+A fast, open-source, **100% client-side** password and passphrase generator. Everything runs in your browser using `crypto.getRandomValues` — no network calls after the page loads, nothing sent anywhere, nothing stored.
 
 **Try it:** [simplepasswordgenerator.net](https://simplepasswordgenerator.net) · [GitHub Pages mirror](https://thelok.github.io/simplepasswordgenerator)
 
 ## Features
 
-- **Cryptographically secure** — uses the Web Crypto API with unbiased rejection sampling (no modulo bias)
-- **Guaranteed character classes** — every password contains at least one of each enabled type (letters, numbers, symbols)
-- **Live strength meter** — see entropy bits and estimated crack time as you adjust settings
-- **Installable PWA** — works fully offline; add it to your home screen
-- **Customizable** — length 6–64, simple/complex symbols, exclude ambiguous characters (`iI1lOo08B`)
+- **Cryptographically secure** — Web Crypto API with unbiased rejection sampling (no modulo bias)
+- **Guaranteed character classes** — every password contains at least one of each enabled type
+- **Passphrase mode** — memorable Diceware-style phrases from the EFF wordlist (`acorn-cheek-frog-tulip`)
+- **Live strength meter** — entropy bits and estimated crack time as you adjust settings
+- **Shareable presets** — copy a URL that encodes your settings (`?len=24&sym=1&n=5`) for team policies
+- **Customizable** — length 6–64, simple/complex symbols, exclude ambiguous characters, custom excludes, generate 1–50 at once, copy-all
+- **Dark mode** — follows your OS or toggle manually
 - **Zero tracking** — no analytics, no cookies, no network calls
 
 ## Why client-side?
 
-Since passwords are generated locally, they never travel over the network and are never visible to us. You can audit the [generator source](src/passwordGenerator/generate.ts) — it's ~100 lines.
+Generating in the browser means passwords never leave your machine — there is nothing for us (or anyone in between) to see. You can audit the [generator source](src/passwordGenerator/generate.ts); it's ~130 lines.
 
 ## Tech
 
-React · TypeScript · Fluent UI · Jotai · Vite · Vitest · vite-plugin-pwa
+React · TypeScript · Fluent UI · Jotai · Vite · Vitest
 
 ## Development
 
