@@ -1,6 +1,7 @@
 import { Checkbox, Dropdown, Field, Option, OptionGroup } from "@fluentui/react-components";
 import { useAtom } from "jotai";
 import { passwordGeneratorAtom } from "../state/state";
+import { PasswordStrength } from "./PasswordStrength";
 import "./passwordgenerator.scss";
 
 const WEAK_LOW_COUNT = 5;
@@ -72,5 +73,6 @@ export const PasswordGeneratorForm = () => {
             checked={passwordGenerator.isExcludeAmbiguousCharacters}
             onChange={() => setPasswordGenerator({ ...passwordGenerator, isExcludeAmbiguousCharacters: !passwordGenerator.isExcludeAmbiguousCharacters })}
         />
+        <PasswordStrength />
     </div>
 }
