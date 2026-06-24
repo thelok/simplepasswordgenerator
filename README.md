@@ -5,7 +5,7 @@
 
 A fast, open-source, **100% client-side** password and passphrase generator. Everything runs in your browser using `crypto.getRandomValues` — no network calls after the page loads, nothing sent anywhere, nothing stored.
 
-**Try it:** [simplepasswordgenerator.net](https://simplepasswordgenerator.net) · [GitHub Pages mirror](https://thelok.github.io/simplepasswordgenerator)
+**Try it:** https://thelok.github.io/simplepasswordgenerator/
 
 ## Features
 

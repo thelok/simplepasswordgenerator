@@ -1,20 +1,11 @@
+import { REASONS } from "./content/reasons"
 import { Reason } from "./Reason"
 
-/**
- * UsageReasons component that displays a list of reasons to use the Simple Password Generator.
- */
 export const UsageReasons = () => {
     return <div className="usage-reasons">
-        <div>Here are some compelling reasons to use Simple Password Generator:
-        </div>
+        <h2>Why use Simple Password Generator?</h2>
         <ul>
-            <Reason title="Enhanced Security" reason="Since passwords are generated client-side, they never travel over the network, ensuring that they remain private and secure." />
-            <Reason title="Strong, Random Passwords" reason="The site can create complex and unpredictable passwords, making them highly resistant to hacking attempts." />
-            <Reason title="User-Friendly" reason="The process is straightforward and doesn’t require any technical expertise, making it accessible for everyone." />
-            <Reason title="Customizable Options" reason="Passwords can be tailored to meet specific requirements, such as length and the inclusion of special characters." />
-            <Reason title="Convenience" reason="Strong passwords can be generated quickly and easily, saving time and effort compared to coming up with them manually." />
-            <Reason title="No Network Calls" reason="Once the page loads, generating passwords makes zero network requests — everything runs locally in your browser, so nothing can be intercepted or logged." />
-            <Reason title="Free to Use" reason="The password generator is completely free to use, with no hidden charges or subscriptions." />
+            {REASONS.map((r) => <Reason key={r.title} title={r.title} reason={r.reason} />)}
         </ul>
     </div>
 }
