@@ -1,5 +1,6 @@
 import { ClipboardBulletListRegular } from '@fluentui/react-icons'
 import './App.css'
+import { Faq } from './Faq'
 import { PasswordGenerator } from './passwordGenerator/PasswordGenerator'
 import { PasswordGeneratorForm } from './passwordGenerator/PasswordGeneratorForm'
 import { UsageReasons } from './UsageReasons'
@@ -37,7 +38,8 @@ export const App = () => {
         </div>
         <PasswordGenerator />
         <UsageReasons />
-        <div>© 2024 Simple Password Generator. All rights reserved.</div>
+        <Faq />
+        <div>© {new Date().getFullYear()} Simple Password Generator. All rights reserved.</div>
       </div>
     </>
   )
