@@ -127,6 +127,12 @@ describe("generatePassword", () => {
 describe("generatePassphrase", () => {
     const phraseOpts: PasswordGeneratorData = { ...base, mode: "passphrase" };
 
+    it("wordlist contains no separator characters", () => {
+        for (const w of WORDLIST) {
+            expect(w).toMatch(/^[a-z]+$/);
+        }
+    });
+
     it("emits the configured number of words from the wordlist", () => {
         const dict = new Set(WORDLIST);
         for (let i = 0; i < 50; i++) {
